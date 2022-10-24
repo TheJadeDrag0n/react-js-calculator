@@ -1,5 +1,6 @@
-import './App.css';
+import "./App.css";
 import { useState } from "react";
+import CalcButtons from "./Components/CalcButtons";
 
 function App() {
   const [answer, setAnswer] = useState("");
@@ -13,7 +14,7 @@ function App() {
           setAnswer(first - second);
           break;
         case "+":
-          setAnswer(first  + second);
+          setAnswer(first + second);
           break;
         case "*":
           setAnswer(first * second);
@@ -26,39 +27,25 @@ function App() {
           break;
       }
     }
-  }
+  };
   return (
-    <div className='App'>
-    <h1>Simple Calculator</h1>
-    <input
-    type='number'
-    value={Number(first)}
-    onChange={(event) => setFirst(event.target.value)}
-    />
-    <input
-    type='number'
-    value={Number(second)}
-    onChange={(event) => setSecond(event.target.value)}
-    />
-    =
-    <input type='number' defaultValue={answer} />
-    <div>
-    <button className='AppButton' onClick={() => Calculate("+")}>
-    +
-    </button>
-    <button className='AppButton' onClick={() => Calculate("-")}>
-    -
-    </button>
-    <button className='AppButton' onClick={() => Calculate("X")}>
-    X
-    </button>
-    <button className='AppButton' onClick={() => Calculate("/")}>
-    /
-    </button>
+    <div className="App">
+      <h1>Simple Calculator</h1>
+      <input
+        type="number"
+        value={Number(first)}
+        onChange={(event) => setFirst(event.target.value)}
+      />
+      <input
+        type="number"
+        value={Number(second)}
+        onChange={(event) => setSecond(event.target.value)}
+      />
+      =
+      <input type="number" defaultValue={answer} />
+      <CalcButtons Calculate={Calculate} />
     </div>
-    </div>
-    );
-   }
-   
+  );
+}
 
 export default App;
