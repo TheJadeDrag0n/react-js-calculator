@@ -1,47 +1,47 @@
 import "./App.css";
 import { useState } from "react";
 import CalcButtons from "./Components/CalcButtons";
-import Inputs from "./Components/Inputs";
+import ButtonKeypad from "./Components/ButtonKeypad";
 
 function App() {
-  const [answer, setAnswer] = useState("");
-  const [first, setFirst] = useState(10);
-  const [second, setSecond] = useState(22);
-  const Calculate = (value) => {
-    console.log("value", value);
-    if (value !== "") {
-      switch (value) {
-        case "-":
-          setAnswer(first - second);
-          break;
-        case "+":
-          setAnswer(first + second);
-          break;
-        case "*":
-          setAnswer(first * second);
-          break;
-        case "/":
-          setAnswer(first / second);
-          break;
-        default:
-          setAnswer("ERROR");
-          break;
-      }
+var [calcutation, setCalculation] = useState("")
+
+  const updateCalculation = (value) => {
+    
+    calcutation += String(value)
+    console.log(calcutation)
+
+    if (value === "=") {
+      var x = new Function(`return ${calcutation.slice(0, -1)}`)
+      setCalculation(x)
     }
+    else if (value === "clear") {
+      setCalculation("")
+    }
+    else if (value === "del") {
+      const result = calcutation.slice(0, -1);
+      setCalculation(result)
+    }
+    else {
+      setCalculation(calcutation);
+    }
+    console.log(`updateCalculation ${calcutation}`)
   };
   return (
-    <div>
+    <div className="calc-box">
       <h1>Calculator</h1>
-      <Inputs 
-        first = {first} 
-        second = {second}
-        setFirst = {setFirst}
-        setSecond = {setSecond}
-        answer = {answer}
-      />
-      <CalcButtons Calculate={Calculate} />
+      <div className='output'>
+        {calcutation || "Enter a number"}
+      </div>
+      <div className="buttons">
+        <CalcButtons updateCalculation = {updateCalculation} />
+        <div className="digits">
+          <ButtonKeypad updateCalculation = {updateCalculation} />
+        </div>
+      </div>
     </div>
   );
+  
 }
 
 export default App;
